@@ -1,0 +1,107 @@
+{
+  "R1_ALL_VALID_TELEMETRY": {
+    "representation_id": "R1_ALL_VALID_TELEMETRY",
+    "description": "All non-constant, non-duplicate sensors including commanded speed and lever position.",
+    "feature_names": [
+      "lp",
+      "v",
+      "GTT",
+      "GTn",
+      "GGn",
+      "Ts",
+      "T48",
+      "T2",
+      "P48",
+      "P2",
+      "Pexh",
+      "TIC",
+      "mf"
+    ],
+    "scaler_type": "standard",
+    "normalization": "global_standard",
+    "intended_use": "Baseline: evaluates unconditioned clustering recovery of combined speed and plant state.",
+    "status": "baseline"
+  },
+  "R2_WITHOUT_OPERATING_DEMAND": {
+    "representation_id": "R2_WITHOUT_OPERATING_DEMAND",
+    "description": "Telemetry features with direct commanded setpoints (lp, v) excluded.",
+    "feature_names": [
+      "GTT",
+      "GTn",
+      "GGn",
+      "Ts",
+      "T48",
+      "T2",
+      "P48",
+      "P2",
+      "Pexh",
+      "TIC",
+      "mf"
+    ],
+    "scaler_type": "standard",
+    "normalization": "global_standard",
+    "intended_use": "Tests whether clustering recovers operating regimes indirectly through coupled physics.",
+    "status": "candidate"
+  },
+  "R3_REDUCED_CORRELATION": {
+    "representation_id": "R3_REDUCED_CORRELATION",
+    "description": "Pruned collinear feature subset (|r| < 0.985) across distinct thermodynamic subsystems.",
+    "feature_names": [
+      "v",
+      "GTT",
+      "GTn",
+      "GGn",
+      "T48",
+      "T2",
+      "P2",
+      "TIC",
+      "mf"
+    ],
+    "scaler_type": "standard",
+    "normalization": "global_standard",
+    "intended_use": "Evaluates whether removing collinear redundancy sharpens cluster separation in distance metrics.",
+    "status": "candidate"
+  },
+  "R4_ROBUST_SCALED_TELEMETRY": {
+    "representation_id": "R4_ROBUST_SCALED_TELEMETRY",
+    "description": "Telemetry scaled via RobustScaler (median centering, IQR scaling) to limit boundary distortion.",
+    "feature_names": [
+      "GTT",
+      "GTn",
+      "GGn",
+      "Ts",
+      "T48",
+      "T2",
+      "P48",
+      "P2",
+      "Pexh",
+      "TIC",
+      "mf"
+    ],
+    "scaler_type": "robust",
+    "normalization": "global_robust",
+    "intended_use": "Evaluates sensitivity of distance metrics to operational boundary extremes.",
+    "status": "candidate"
+  },
+  "R5_WITHIN_SPEED_NORMALIZED": {
+    "representation_id": "R5_WITHIN_SPEED_NORMALIZED",
+    "description": "Telemetry features conditionally normalized (mean=0, std=1) within each discrete operating speed regime.",
+    "feature_names": [
+      "GTT",
+      "GTn",
+      "GGn",
+      "Ts",
+      "T48",
+      "T2",
+      "P48",
+      "P2",
+      "Pexh",
+      "TIC",
+      "mf"
+    ],
+    "scaler_type": "within_regime_standard",
+    "normalization": "conditional_within_speed",
+    "intended_use": "Primary hypothesis: isolates subtle component degradation signatures from dominant speed variance.",
+    "status": "recommended"
+  }
+}

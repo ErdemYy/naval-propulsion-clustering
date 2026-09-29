@@ -1,0 +1,89 @@
+# Project Plan: Naval Propulsion Clustering
+
+**Academic Title:** *Unsupervised Discovery of Operating and Performance Degradation Profiles in Naval Gas Turbine Propulsion Systems*
+
+---
+
+## 1. Project Objectives
+1. Perform rigorous, reproducible unsupervised learning on multivariate gas turbine propulsion system data.
+2. Characterize operating envelopes and assess whether subtle degradation profiles naturally group into distinct clusters without supervision.
+3. Quantify post-hoc correlation between discovered clusters and true physical degradation parameters ($kMc$, $kMt$) without introducing data leakage into the training phase.
+4. Deliver a robust, tested Python package alongside an interactive local Streamlit dashboard and academic documentation suitable for university defense.
+
+---
+
+## 2. Multi-Phase Roadmap
+
+### Phase 0: Project Foundation & Architecture (Current Phase)
+- [x] Establish directory hierarchy and package structure.
+- [x] Configure build metadata (`pyproject.toml`), environment guidelines, and `.gitignore`.
+- [x] Formulate core governance documents: `PROJECT_PLAN.md`, `METHODOLOGY.md`, `LIMITATIONS.md`, `EXPERIMENT_LOG.md`.
+- [x] Formulate architectural blueprint in `docs/ARCHITECTURE.md`.
+- [x] Build minimal configuration and utility primitives (deterministic seeding, structured logging).
+- [ ] Review and lock architectural baseline before proceeding to ingestion.
+
+### Phase 1: Dataset Acquisition & Exploratory Data Analysis (EDA) - COMPLETED
+- [x] Ingest the raw Naval Propulsion Plants dataset into `data/raw/` with verifiable checksums and manifest.
+- [x] Audit data types, missing values, zero-variance columns, and distribution ranges.
+- [x] Inspect physical sensor properties (pressures, temperatures, shaft speeds, fuel flow rate).
+- [x] Map out target degradation columns (`kMc`, `kMt`) and ensure strict boundary isolation.
+- [x] Conduct correlation analysis, multicollinearity checks, and scale disparity profiling in `notebooks/01_dataset_exploration.ipynb`.
+- [x] Generate publication-quality diagnostic figures in `reports/figures/phase1/`.
+- [x] Produce formal data dictionary in `docs/DATA_DICTIONARY.md` and audit report in `docs/PHASE_1_AUDIT.md`.
+
+### Phase 2: Preprocessing, Scaling & Dimensionality Exploration - COMPLETED
+- [x] Implement scikit-learn compatible preprocessors: `ColumnFilterTransformer`, `TelemetryScaler`, `OperatingRegimeNormalizer`.
+- [x] Feature screening: mandatory removal of zero-variance `T1`, `P1` and exact clone `Tp` documented in `feature_screening.csv`.
+- [x] Scaler comparison across `StandardScaler`, `RobustScaler`, and `MinMaxScaler` documented in `scaler_comparison.json`.
+- [x] Outlier investigation: classified 99% ordinary, 1% boundary extremes in `outlier_report.json`.
+- [x] Operating-condition analysis: proved operating speed `v` explains 99.33% of sensor variance in `operating_regime_report.json`.
+- [x] PCA analysis: proved PC1 explains 97.41% due to plant load coupling; PCA rejected as pre-clustering filter.
+- [x] Formally registered 5 candidate representations (R1 to R5) in `representation_registry.json`.
+- [x] Generated Phase 2 research notebook `02_preprocessing_experiments.ipynb` and formal audit in `docs/PHASE_2_AUDIT.md`.
+
+### Phase 3: Unsupervised Model Development & Clustering Experiments - COMPLETED
+- [x] Implement standardized model wrappers: `KMeansClusterer`, `AgglomerativeClustererWrapper`, `DBSCANClustererWrapper`, `GMMClustererWrapper`.
+- [x] Experiment Group A-E: Evaluated K-Means sweeps ($k=2 \dots 12$) across R1, R2, R3, R4, R5.
+- [x] Proved operating regime recovery in unconditioned telemetry: $k=9$ recovers ship speed with ARI $0.877$ (R1) and $0.844$ (R2 without speed setpoints).
+- [x] Proved primary degradation discovery in R5 (Within-Speed Normalized): K-Means ($k=2$) discovers compressor degradation with $\eta^2 = 0.446$ ($p < 10^{-100}$); $k=3$ discovers both $kMc$ ($\eta^2 = 0.511$) and $kMt$ ($\eta^2 = 0.301$).
+- [x] Multi-seed stability analysis: 10 random seeds confirmed mean pairwise ARI $\ge 0.994$.
+- [x] Algorithm comparisons: Agglomerative Ward confirmed K-Means structure ($ARI = 0.962$); documented DBSCAN and GMM negative findings.
+- [x] Generated 10 publication-quality diagnostic figures in `reports/figures/phase3/`.
+- [x] Produced Phase 3 research notebook `03_clustering_experiments.ipynb` and audit in `docs/PHASE_3_AUDIT.md`.
+
+### Phase 4: Cluster Validation, Evaluation & Degradation Correlation (Next Phase)
+- [ ] Compute intrinsic unsupervised metrics:
+  - Silhouette Coefficient
+  - Calinski-Harabasz Index
+  - Davies-Bouldin Index
+- [ ] Stability and bootstrap validation across random initializations.
+- [ ] **Post-hoc Degradation Validation (Zero-Leakage):**
+  - Distribution of $kMc$ and $kMt$ across identified clusters.
+  - Non-parametric hypothesis testing (Kruskal-Wallis, Mann-Whitney U) and effect size calculations.
+  - Thermodynamic interpretation: Do clusters represent operating points (load, ship speed) or degradation severity levels?
+
+### Phase 5: Local Streamlit Dashboard Implementation
+- [ ] Build an interactive, self-contained Streamlit dashboard in `app/`.
+- [ ] Interactive feature exploration and 2D/3D cluster projection visualizations.
+- [ ] Dynamic parameter inspection and cluster comparison tool.
+- [ ] Verification on local Windows OS without cloud or network requirements.
+
+### Phase 6: Final Academic Synthesis, Documentation & Presentation
+- [ ] Finalize high-resolution publication figures in `reports/figures/`.
+- [ ] Produce academic report summarizing findings, statistical proofs, and physical interpretations.
+- [ ] Ensure 100% test pass rate across unit and integration tests.
+- [ ] Prepare presentation slide deck and local demo script.
+
+---
+
+## 3. Milestones & Checkpoints
+
+| Milestone | Deliverables | Verification Criteria |
+| :--- | :--- | :--- |
+| **M0: Architecture Base** | Directory tree, config system, base package, test scaffold | Unit tests pass, structure reviewed |
+| **M1: EDA & Verification** | EDA notebook, data inspection report, column catalog | Verified no missing data anomalies, $kMc$/$kMt$ isolated |
+| **M2: Preprocessing Pipeline** | Reusable transformers, feature selection, scaling tests | Deterministic transformations, unit test coverage |
+| **M3: Clustering Benchmarks** | Clustering suite, parameter sweeps, logged runs | Intrinsic metrics logged in `experiments/outputs/` |
+| **M4: Validation & Physics** | Statistical test results, degradation correlation analysis | Rigorous p-values, clear operating vs. degradation separation |
+| **M5: Local Dashboard** | Working Streamlit application, visualization views | Flawless local launch via `streamlit run app/main.py` |
+| **M6: Defense Readiness** | Final report, test suite passing, slides and demo script | Academic quality, zero unverified claims |

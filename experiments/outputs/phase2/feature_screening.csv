@@ -1,0 +1,17 @@
+feature,variance,duplicate_group,proposed_action,reason
+lp,6.8979124495097635,operating_demand,candidate removal,Lever position is commanded operating demand; perfectly collinear with ship speed v.
+v,60.005028073409875,operating_regime,candidate retention,Ship speed defines discrete operating regimes; retained as regime index for conditional analysis.
+GTT,490561064.6777392,near_dup(Ts),candidate retention,"Extremely high thermodynamic correlation with ['Ts'], candidate for correlation pruning."
+GTn,599205.8552203537,none,candidate retention,Informative thermodynamic telemetry feature with non-zero variance.
+GGn,1190969.535959036,none,candidate retention,Informative thermodynamic telemetry feature with non-zero variance.
+Ts,40198.601606414726,near_dup(GTT),candidate retention,"Extremely high thermodynamic correlation with ['GTT'], candidate for correlation pruning."
+Tp,40198.601606414726,Ts/Tp,mandatory removal,Exact mathematical clone of Ts (|Tp - Ts| == 0 everywhere).
+T48,30164.9341953719,none,candidate retention,Informative thermodynamic telemetry feature with non-zero variance.
+T1,0.0,none,mandatory removal,Zero variance constant sensor (simulated ambient boundary condition).
+T2,5281.783815276204,none,candidate retention,Informative thermodynamic telemetry feature with non-zero variance.
+P48,1.1767259454857242,near_dup(P2),candidate retention,"Extremely high thermodynamic correlation with ['P2'], candidate for correlation pruning."
+P1,0.0,none,mandatory removal,Zero variance constant sensor (simulated ambient boundary condition).
+P2,28.488354453840834,near_dup(P48),candidate retention,"Extremely high thermodynamic correlation with ['P48'], candidate for correlation pruning."
+Pexh,0.00010795871912687883,none,candidate retention,Informative thermodynamic telemetry feature with non-zero variance.
+TIC,667.7760403141683,none,candidate retention,Informative thermodynamic telemetry feature with non-zero variance.
+mf,0.25718250767293105,none,candidate retention,Informative thermodynamic telemetry feature with non-zero variance.

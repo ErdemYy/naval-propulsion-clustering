@@ -1,0 +1,88 @@
+{
+  "total_samples": 11934,
+  "features_analyzed": [
+    "lp",
+    "v",
+    "GTT",
+    "GTn",
+    "GGn",
+    "Ts",
+    "T48",
+    "T2",
+    "P48",
+    "P2",
+    "Pexh",
+    "TIC",
+    "mf"
+  ],
+  "univariate_summary": {
+    "lp": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    },
+    "v": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    },
+    "GTT": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    },
+    "GTn": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    },
+    "GGn": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    },
+    "Ts": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    },
+    "T48": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    },
+    "T2": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    },
+    "P48": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    },
+    "P2": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    },
+    "Pexh": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    },
+    "TIC": {
+      "iqr_outliers_count": 192,
+      "robust_z_outliers_count": 0
+    },
+    "mf": {
+      "iqr_outliers_count": 0,
+      "robust_z_outliers_count": 0
+    }
+  },
+  "classification_counts": {
+    "ordinary_count": 11815,
+    "potentially_extreme_count": 119,
+    "highly_extreme_count": 0,
+    "ordinary_ratio": 0.99002849002849,
+    "potentially_extreme_ratio": 0.009971509971509971,
+    "highly_extreme_ratio": 0.0
+  },
+  "multivariate_mahalanobis": {
+    "chi2_critical_value_p001": 34.52817897487089,
+    "max_distance": 7.152750002066853,
+    "median_distance": 3.1523505093622037,
+    "outliers_above_cutoff_count": 119
+  },
+  "speed_distribution_of_highly_extreme": {},
+  "physical_interpretation": "Extremes occur predominantly at operating boundaries (minimum idle speed 3 knots and maximum flank speed 27 knots). These reflect valid physical aerodynamic/thermodynamic operating limits rather than instrument measurement errors or corrupted data."
+}

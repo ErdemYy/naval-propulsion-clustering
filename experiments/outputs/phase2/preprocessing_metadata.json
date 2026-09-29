@@ -1,0 +1,46 @@
+{
+  "phase": "Phase 2 \u2014 Preprocessing, Feature Engineering & Operating-Condition Analysis",
+  "timestamp_utc": "2026-09-29T12:14:54.795665+00:00",
+  "input_dataset": "naval_propulsion.csv",
+  "input_sha256": "00e3c6127f0d8f88269c48865cb62a2c848579eb8e4b6e85d5f7e147ad22460a",
+  "row_count": 11934,
+  "quarantined_targets": [
+    "kMc",
+    "kMt"
+  ],
+  "clean_telemetry_features": [
+    "lp",
+    "v",
+    "GTT",
+    "GTn",
+    "GGn",
+    "Ts",
+    "T48",
+    "T2",
+    "P48",
+    "P2",
+    "Pexh",
+    "TIC",
+    "mf"
+  ],
+  "library_versions": {
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "pandas": "2.3.3",
+    "numpy": "numpy",
+    "scikit-learn": "1.9.1"
+  },
+  "artifacts_generated": {
+    "feature_screening": "experiments/outputs/phase2/feature_screening.csv",
+    "scaler_comparison_json": "experiments/outputs/phase2/scaler_comparison.json",
+    "outlier_report_json": "experiments/outputs/phase2/outlier_report.json",
+    "operating_regime_report_json": "experiments/outputs/phase2/operating_regime_report.json",
+    "pca_analysis_json": "experiments/outputs/phase2/pca_analysis.json",
+    "representation_registry_json": "experiments/outputs/phase2/representation_registry.json",
+    "pearson_correlation_png": "reports/figures/phase2/pearson_correlation.png",
+    "spearman_correlation_png": "reports/figures/phase2/spearman_correlation.png",
+    "scaler_comparison_png": "reports/figures/phase2/scaler_comparison.png",
+    "operating_speed_profiles_png": "reports/figures/phase2/operating_speed_profiles.png",
+    "pca_explained_variance_png": "reports/figures/phase2/pca_explained_variance.png",
+    "pca_loadings_png": "reports/figures/phase2/pca_loadings.png"
+  }
+}

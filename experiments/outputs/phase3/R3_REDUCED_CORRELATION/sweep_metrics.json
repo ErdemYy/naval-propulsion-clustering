@@ -1,0 +1,101 @@
+[
+  {
+    "k": 2,
+    "inertia": 29349.983682295617,
+    "silhouette": 0.6301850248293528,
+    "davies_bouldin": 0.5372932075153045,
+    "calinski_harabasz": 31733.046150368544,
+    "ari_vs_speed": 0.2172772293463645,
+    "nmi_vs_speed": 0.47636424275903577
+  },
+  {
+    "k": 3,
+    "inertia": 11275.622145368568,
+    "silhouette": 0.6518014974026611,
+    "davies_bouldin": 0.4958378307283873,
+    "calinski_harabasz": 50858.90265730072,
+    "ari_vs_speed": 0.3660415449184508,
+    "nmi_vs_speed": 0.651215716477629
+  },
+  {
+    "k": 4,
+    "inertia": 6329.71347173949,
+    "silhouette": 0.6639476530060976,
+    "davies_bouldin": 0.4636585373725241,
+    "calinski_harabasz": 63501.56309949412,
+    "ari_vs_speed": 0.4373349679366277,
+    "nmi_vs_speed": 0.7336804366512109
+  },
+  {
+    "k": 5,
+    "inertia": 3443.785044976982,
+    "silhouette": 0.687665905547733,
+    "davies_bouldin": 0.42806836207412946,
+    "calinski_harabasz": 90029.22990267216,
+    "ari_vs_speed": 0.5792758170856397,
+    "nmi_vs_speed": 0.8187535081175067
+  },
+  {
+    "k": 6,
+    "inertia": 2377.954576479731,
+    "silhouette": 0.6894882818526461,
+    "davies_bouldin": 0.348852941114907,
+    "calinski_harabasz": 105365.72382020234,
+    "ari_vs_speed": 0.6398454712824073,
+    "nmi_vs_speed": 0.8657180464588944
+  },
+  {
+    "k": 7,
+    "inertia": 1518.4088175240554,
+    "silhouette": 0.7667118274432048,
+    "davies_bouldin": 0.23669664572176802,
+    "calinski_harabasz": 138623.3278611503,
+    "ari_vs_speed": 0.7095392254703892,
+    "nmi_vs_speed": 0.9090909090909092
+  },
+  {
+    "k": 8,
+    "inertia": 905.2535605305076,
+    "silhouette": 0.747201383290279,
+    "davies_bouldin": 0.4038244808120646,
+    "calinski_harabasz": 200438.30253473407,
+    "ari_vs_speed": 0.8196874177119033,
+    "nmi_vs_speed": 0.907768309614882
+  },
+  {
+    "k": 9,
+    "inertia": 585.5220551028935,
+    "silhouette": 0.7747269860189004,
+    "davies_bouldin": 0.40987465431313375,
+    "calinski_harabasz": 271944.3067729671,
+    "ari_vs_speed": 0.8703312061611136,
+    "nmi_vs_speed": 0.922840607059139
+  },
+  {
+    "k": 10,
+    "inertia": 456.10718563914656,
+    "silhouette": 0.7721996795461178,
+    "davies_bouldin": 0.46699720036445436,
+    "calinski_harabasz": 310670.75458034914,
+    "ari_vs_speed": 0.8716381337416713,
+    "nmi_vs_speed": 0.9107721368883843
+  },
+  {
+    "k": 11,
+    "inertia": 390.29974133948093,
+    "silhouette": 0.7694931174897836,
+    "davies_bouldin": 0.5471978762986259,
+    "calinski_harabasz": 326951.2418810504,
+    "ari_vs_speed": 0.8705938656222418,
+    "nmi_vs_speed": 0.900324611171892
+  },
+  {
+    "k": 12,
+    "inertia": 336.2837260818399,
+    "silhouette": 0.7777387875786419,
+    "davies_bouldin": 0.5511309811752781,
+    "calinski_harabasz": 345091.6586715068,
+    "ari_vs_speed": 0.889553117694331,
+    "nmi_vs_speed": 0.9167085068389914
+  }
+]

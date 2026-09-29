@@ -1,0 +1,107 @@
+{
+  "regime_column": "v",
+  "unique_regimes": [
+    3.0,
+    6.0,
+    9.0,
+    12.0,
+    15.0,
+    18.0,
+    21.0,
+    24.0,
+    27.0
+  ],
+  "n_samples_per_regime": 1326,
+  "feature_metrics": {
+    "GTT": {
+      "eta_squared": 0.9986213900055658,
+      "percent_variance_explained_by_speed": 99.86213900055658,
+      "ss_total": 5853865184799.462,
+      "ss_between_speeds": 5845794987749.627,
+      "ss_within_speeds": 8070197049.834961,
+      "f_statistic": 1079761.5101346863
+    },
+    "GTn": {
+      "eta_squared": 0.9997515627886008,
+      "percent_variance_explained_by_speed": 99.97515627886008,
+      "ss_total": 7150323470.3444805,
+      "ss_between_speeds": 7148547063.920906,
+      "ss_within_speeds": 1776406.4235744476,
+      "f_statistic": 5998516.344990307
+    },
+    "GGn": {
+      "eta_squared": 0.9993818241370132,
+      "percent_variance_explained_by_speed": 99.93818241370131,
+      "ss_total": 14211839472.599178,
+      "ss_between_speeds": 14203054056.468575,
+      "ss_within_speeds": 8785416.13060379,
+      "f_statistic": 2409837.751358561
+    },
+    "Ts": {
+      "eta_squared": 0.9999602533968812,
+      "percent_variance_explained_by_speed": 99.99602533968812,
+      "ss_total": 479689912.96934694,
+      "ss_between_speeds": 479670846.92475605,
+      "ss_within_speeds": 19066.044590890408,
+      "f_statistic": 37501714.25377028
+    },
+    "T48": {
+      "eta_squared": 0.9770184916500202,
+      "percent_variance_explained_by_speed": 97.70184916500202,
+      "ss_total": 359958159.7533729,
+      "ss_between_speeds": 351685778.2993574,
+      "ss_within_speeds": 8272381.454015493,
+      "f_statistic": 63371.30561393691
+    },
+    "T2": {
+      "eta_squared": 0.9948688167249182,
+      "percent_variance_explained_by_speed": 99.48688167249182,
+      "ss_total": 63027526.26769094,
+      "ss_between_speeds": 62704120.47903639,
+      "ss_within_speeds": 323405.7886545509,
+      "f_statistic": 289012.54358468746
+    },
+    "P48": {
+      "eta_squared": 0.9992769173025711,
+      "percent_variance_explained_by_speed": 99.92769173025711,
+      "ss_total": 14041.870707481146,
+      "ss_between_speeds": 14031.717273733033,
+      "ss_within_speeds": 10.153433748113457,
+      "f_statistic": 2059995.5719457539
+    },
+    "P2": {
+      "eta_squared": 0.998655369038873,
+      "percent_variance_explained_by_speed": 99.8655369038873,
+      "ss_total": 339951.53369768267,
+      "ss_between_speeds": 339494.42434019013,
+      "ss_within_speeds": 457.1093574925326,
+      "f_statistic": 1107084.9195870224
+    },
+    "Pexh": {
+      "eta_squared": 0.9974339098696448,
+      "percent_variance_explained_by_speed": 99.74339098696447,
+      "ss_total": 1.288271395341045,
+      "ss_between_speeds": 1.2849655748282414,
+      "ss_within_speeds": 0.0033058205128035922,
+      "f_statistic": 579402.8449396783
+    },
+    "TIC": {
+      "eta_squared": 0.965916210741512,
+      "percent_variance_explained_by_speed": 96.5916210741512,
+      "ss_total": 7968571.48906897,
+      "ss_between_speeds": 7696972.377744348,
+      "ss_within_speeds": 271599.1113246223,
+      "f_statistic": 42243.508804644
+    },
+    "mf": {
+      "eta_squared": 0.995792940495221,
+      "percent_variance_explained_by_speed": 99.5792940495221,
+      "ss_total": 3068.9588640610864,
+      "ss_between_speeds": 3056.0475715022626,
+      "ss_within_speeds": 12.911292558823789,
+      "f_statistic": 352824.54413576983
+    }
+  },
+  "mean_variance_explained_by_speed": 99.33343351046202,
+  "scientific_conclusion": "Operating speed 'v' explains an average of 99.33% of total feature variance across telemetry channels. Unconditioned clustering on standardized telemetry will inevitably reconstruct the discrete operating speed setpoints rather than subtle degradation profiles."
+}

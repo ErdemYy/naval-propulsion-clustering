@@ -1,0 +1,31 @@
+# Default System Configuration for Naval Propulsion Clustering
+
+project:
+  name: "naval-propulsion-clustering"
+  random_seed: 42
+  environment: "local"
+
+paths:
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  models_dir: "models"
+  experiments_dir: "experiments"
+  reports_dir: "reports"
+  figures_dir: "reports/figures"
+
+data:
+  # Degradation indicators: Strictly held out from unsupervised training
+  degradation_targets:
+    - "kMc"  # Compressor decay state coefficient
+    - "kMt"  # Turbine decay state coefficient
+
+  # Validation split or sample parameters (if subsampling large datasets for tests)
+  sample_size: null
+
+clustering:
+  algorithms:
+    - "kmeans"
+    - "hierarchical"
+    - "dbscan"
+    - "gmm"
+  default_random_seed: 42
