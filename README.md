@@ -98,8 +98,23 @@ pytest
 
 ---
 
-## 4. Academic Documentation Links
-- [Architecture Report](file:///docs/ARCHITECTURE.md)
+### Launching the Local Academic Dashboard
+```powershell
+streamlit run app/main.py
+```
+The dashboard runs completely offline on your local Windows laptop at `http://localhost:8501`.
+
+---
+
+## 4. Academic Documentation & Audit Links
+- [Phase 1 Audit (Ingestion & Quality)](file:///docs/PHASE_1_AUDIT.md)
+- [Phase 2 Audit (Preprocessing & Representations)](file:///docs/PHASE_2_AUDIT.md)
+- [Phase 3 Audit (Controlled Clustering Experiments)](file:///docs/PHASE_3_AUDIT.md)
+- [Phase 4 Audit (Scientific Validation & Selection)](file:///docs/PHASE_4_AUDIT.md)
+- [Phase 5 Audit (Local Streamlit Dashboard)](file:///docs/PHASE_5_AUDIT.md)
+- [Final Model Validation Report](file:///reports/final_model_validation.md)
+- [Live Presentation & Defense Guide](file:///docs/PRESENTATION_DEMO.md)
+- [Software Architecture](file:///docs/ARCHITECTURE.md)
 - [Project Plan](file:///PROJECT_PLAN.md)
 - [Methodology & Protocols](file:///METHODOLOGY.md)
 - [Limitations & Boundary Conditions](file:///LIMITATIONS.md)
