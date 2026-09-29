@@ -1,121 +1,155 @@
 # Naval Propulsion Clustering
 
-**Academic Title:** *Unsupervised Discovery of Operating and Performance Degradation Profiles in Naval Gas Turbine Propulsion Systems*
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Tests Passing](https://img.shields.io/badge/tests-51%2F51%20passing-brightgreen.svg)]()
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)]()
+[![Platform: Windows / Linux](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey.svg)]()
 
-An academic machine learning research project for exploring unsupervised learning, clustering methodologies, and profile discovery on multivariate measurements from naval gas turbine propulsion systems.
-
----
-
-## 1. Project Overview & Purpose
-
-This project investigates whether distinct, physically meaningful operating conditions and degradation-related profiles can be discovered in a naval propulsion plant purely through **unsupervised clustering**, without providing degradation labels or ground-truth decay states during training.
-
-### Authoritative Dataset Provenance:
-- **Source:** UCI Machine Learning Repository (Dataset ID: 316)
-- **Dataset Name:** Condition Based Maintenance of Naval Propulsion Plants
-- **Source Archive:** `https://archive.ics.uci.edu/static/public/316/condition+based+maintenance+of+naval+propulsion+plants.zip`
-- **Integrity Digest (data.txt SHA-256):** `de0ea69da1efaab8b9655ffed828547d10dd68c1fb8c6e0163e6a988def393a6`
-- **Total Records:** 11,934 rows x 18 continuous numeric columns
-- **Provenance Manifest:** [`data/raw/manifest.json`](file:///data/raw/manifest.json)
-- **Data Dictionary:** [`docs/DATA_DICTIONARY.md`](file:///docs/DATA_DICTIONARY.md)
-- **Phase 1 Audit Report:** [`docs/PHASE_1_AUDIT.md`](file:///docs/PHASE_1_AUDIT.md)
-- **Phase 2 Audit Report:** [`docs/PHASE_2_AUDIT.md`](file:///docs/PHASE_2_AUDIT.md)
-- **Phase 3 Audit Report:** [`docs/PHASE_3_AUDIT.md`](file:///docs/PHASE_3_AUDIT.md)
-- **Representation Registry:** [`experiments/outputs/phase2/representation_registry.json`](file:///experiments/outputs/phase2/representation_registry.json)
-
-### Key Methodological Guardrails:
-1. **Strictly Unsupervised Discovery:** The core machine learning task is unsupervised clustering. It is not framed as a supervised regression or classification problem.
-2. **Feature Integrity (Target Separation):** Compressor decay state coefficient ($kMc$) and Turbine decay state coefficient ($kMt$) are **strictly quarantined** in `DatasetContainer.targets`. They are excluded from all clustering inputs and reserved exclusively for post-hoc validation.
-3. **No Unsubstantiated Predictive Claims:** We avoid claims of "predicting failure" unless supported by rigorous empirical validation and appropriate time-series/degradation methodology.
-4. **Distinction of Layers:** The project explicitly separates:
-   - Mathematical clustering outputs (partitions, densities, cluster centroids).
-   - Statistical evaluations (silhouette, Davies-Bouldin, ANOVA, Kruskal-Wallis).
-   - Domain engineering interpretation (gas turbine thermodynamic relations).
-   - Methodological limitations and threats to validity.
-5. **Local & Cloudless Execution:** Designed to execute seamlessly on local environments (specifically tested for local Windows OS) with zero cloud infrastructure dependencies.
-6. **Deterministic Reproducibility:** Fixed random seeds, structured configurations, and pipeline isolation ensure all experiments are end-to-end reproducible.
+**Academic Title:** *Unsupervised Discovery of Operating and Performance Degradation Profiles in Naval Gas Turbine Propulsion Systems*  
+**Research Domain:** Machine Learning, Unsupervised Clustering, Industrial Condition Monitoring, Turbomachinery  
+**Dataset:** UCI Machine Learning Repository Dataset #316 (Naval Propulsion Plants, N=11,934)  
 
 ---
 
-## 2. Directory Structure
+## 📌 Executive Summary
+
+In industrial and naval turbomachinery, continuous sensor measurements are abundantly available, but explicit equipment degradation labels are rarely accessible during operational service. Furthermore, **operational plant load** (commanded ship speed $v$) introduces variance that dwarfs subtle physical deterioration signatures.
+
+This research investigates whether distinct, physically meaningful operating conditions and component degradation profiles (compressor decay and turbine decay) can be discovered in a naval Combined Diesel and Gas (CODAG) propulsion plant purely through **unsupervised clustering**, without providing degradation labels to the clustering algorithms.
+
+### Key Scientific Findings:
+- **Operating Speed Dominance:** Commanded ship speed $v$ explains **99.33% of raw sensor variance** ($\eta^2 \ge 0.965$ across all telemetry channels). Naive clustering algorithms on unconditioned telemetry merely group data by operating speed setpoints (Adjusted Rand Index $\text{ARI} = 0.8769$).
+- **Within-Speed Normalization ($R5$):** Z-scoring telemetry conditionally within each operating speed setting decouples the operating setpoint ($\text{ARI} = 0.0002$) while preserving residual degradation signals.
+- **Strict Zero-Leakage (Rule 1):** Compressor ($kMc$) and turbine ($kMt$) decay coefficients were strictly quarantined from model inputs and used exclusively for post-hoc statistical validation.
+- **Primary Scientific Model (`KMeans(k=2)`):** Discovers a parsimonious compressor degradation profile ($kMc$ Cliff's delta $d = +0.7709$, Large effect, $p < 10^{-100}$) with **98.44% bootstrap stability** ($B=100$) and high speed invariance ($49.77\% \pm 2.22\%$).
+- **Secondary Diagnostic Model (`KMeans(k=3)`):** Resolves both compressor decay ($d = +0.8689$) and turbine decay ($d = -0.7673$, Large effect), isolating nominal, turbine-degraded, and compressor-degraded thermodynamic states.
+
+---
+
+## 🏛️ System Architecture
 
 ```text
 naval-propulsion-clustering/
-├── .gitignore               # Ignored artifacts, datasets, caches
-├── pyproject.toml           # Package metadata, dependencies, build settings
-├── README.md                # Project documentation overview
-├── PROJECT_PLAN.md          # Multi-phase project plan and milestones
-├── METHODOLOGY.md           # Formal academic methodology & experimental protocol
-├── LIMITATIONS.md           # Engineering & methodological limitations
-├── EXPERIMENT_LOG.md        # Reproducible experiment registry & audit log
-├── configs/                 # YAML configuration files (models, pipelines)
-├── data/
-│   ├── raw/                 # Immutable original dataset files
-│   └── processed/           # Sanitized, scaled, or feature-engineered datasets
-├── notebooks/               # Exploratory and prototyping Jupyter notebooks
-├── src/
-│   └── naval_propulsion/    # Core production & research Python package
-│       ├── config/          # Configuration schemas and loading utilities
-│       ├── data/            # Dataset loading and validation logic
-│       ├── preprocessing/   # Cleaning, scaling, outlier handling
-│       ├── features/        # Feature filtering, selection, dimensionality reduction
-│       ├── clustering/      # Clustering algorithms, baselines, and wrappers
-│       ├── evaluation/      # Unsupervised metrics and post-hoc statistical validation
-│       ├── visualization/   # Publication-quality plotting and figures
-│       └── utils/           # Reproducibility seeds, I/O, and logging
-├── experiments/
-│   ├── configs/             # Experiment-specific run specifications
-│   └── outputs/             # Output metrics, tables, and serialized metadata
-├── models/                  # Serialized clustering estimators and scalers
-├── reports/
-│   └── figures/             # High-resolution figures generated for reports
-├── app/                     # Streamlit local interactive dashboard
-├── tests/                   # Pytest suite (unit & integration tests)
-└── docs/
-    └── ARCHITECTURE.md      # Detailed software and ML system architecture
+├── pyproject.toml              # Declarative package build configuration
+├── README.md                   # Main project overview and documentation
+├── PROJECT_PLAN.md             # Multi-phase project roadmap & milestones
+├── METHODOLOGY.md              # Formal experimental protocols
+├── LIMITATIONS.md              # Boundary conditions & scientific constraints
+├── EXPERIMENT_LOG.md           # Immutable experiment registry
+├── app/                        # Professional local Streamlit dashboard
+│   ├── main.py                 # Dashboard entrypoint & startup validator
+│   ├── components/             # Modular Streamlit views (Overview, Profiles, Map, Demo)
+│   └── services/               # Zero-leakage inference, cached data, model loaders
+├── src/naval_propulsion/       # Core production & research package
+│   ├── data/                   # Verified data loaders & container abstractions
+│   ├── preprocessing/          # Screening, scalers, and Within-Speed Normalizer
+│   ├── features/               # Correlation pruning & representation registry
+│   ├── clustering/             # Standardized model wrappers (K-Means, GMM, Ward, DBSCAN)
+│   ├── evaluation/             # Metrics, bootstrap stability, and pairwise MWU/FDR tests
+│   └── visualization/          # Publication-grade plotting modules
+├── models/final/               # Serialized final models & model_manifest.json
+├── experiments/outputs/        # Machine-readable JSON metrics and sweeps
+├── reports/                    # Formal university reports & publication figures
+│   ├── FINAL_UNIVERSITY_REPORT_TR.md # Full Turkish academic research report
+│   ├── ABSTRACT_EN.md          # Formal English research abstract
+│   └── figures/                # High-resolution publication plots
+├── docs/                       # Formal audit logs & defense preparation guides
+│   ├── PRESENTATION_OUTLINE_TR.md   # 16-slide university defense plan
+│   ├── LIVE_DEMO_SCRIPT_TR.md       # 5-7 minute live dashboard demo script
+│   ├── DEFENSE_QA_TR.md             # 21 instructor defense questions & answers
+│   └── CLAIMS_CHECKLIST_TR.md       # Presentation-safe speaking guidelines
+└── tests/                      # 51 automated pytest unit and integration tests
 ```
 
 ---
 
-## 3. Quickstart & Installation
+## 📊 Experimental Results & Model Comparison
 
-### Requirements
-- Python >= 3.10
-- Local Windows or POSIX environment
+| Evaluation Criterion | Candidate A (Primary Baseline: K=2) | Candidate B (Secondary Diagnostic: K=3) |
+| :--- | :--- | :--- |
+| **Number of Clusters ($k$)** | **2** (Parsimonious) | **3** (Multi-Component) |
+| **Silhouette Coefficient** | **0.2813** (Highest cohesion) | 0.2593 |
+| **Davies-Bouldin Index** | 1.3917 | **1.2918** |
+| **Calinski-Harabasz Index** | **5543.4** | 4889.7 |
+| **Operating Speed Recovery ($\text{ARI vs } v$)** | **0.0002** (Completely decoupled) | 0.0064 |
+| **Speed-wise Proportion Std** | **2.22%** ($49.77\% \pm 2.22\%$) | 6.28% ($28.3\% \dots 37.1\%$) |
+| **Bootstrap Stability (Mean ARI, $B=100$)** | **0.9844** [95% CI: 0.970–0.998] | 0.9434 [95% CI: 0.792–0.990] |
+| **Compressor Signal ($kMc$ $\eta^2$)** | 0.4459 (Large effect) | **0.5109** (Large effect) |
+| **Compressor Signal (Cliff's Delta $d$)** | **+0.7709** (Large effect) | **+0.8689** (Large effect) |
+| **Turbine Signal ($kMt$ $\eta^2$)** | 0.0131 (Negligible effect) | **0.3007** (Large effect) |
+| **Turbine Signal (Cliff's Delta $d$)** | +0.1321 (Negligible effect) | **-0.7673** (Large effect) |
+| **Degradation Grid Speed Consistency** | **86.24%** (Median: 88.89%) | 82.17% (Median: 88.89%) |
 
-### Setup Virtual Environment
+---
+
+## 🚀 Quickstart & Local Installation
+
+### Prerequisites
+- Python >= 3.10 (tested on Python 3.12 64-bit Windows)
+- Git
+
+### 1. Clone & Set Up Virtual Environment
 ```powershell
+git clone https://github.com/ErdemYy/naval-propulsion-clustering.git
+cd naval-propulsion-clustering
+
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 pip install -e ".[dev]"
 ```
 
-### Running Tests
+### 2. Run Automated Test Suite
+To verify the complete test suite (51 tests):
 ```powershell
 pytest
 ```
 
----
-
-### Launching the Local Academic Dashboard
+### 3. Launch the Local Streamlit Dashboard
+The dashboard operates **completely offline** on your local machine:
 ```powershell
 streamlit run app/main.py
 ```
-The dashboard runs completely offline on your local Windows laptop at `http://localhost:8501`.
+Open your browser at 👉 **`http://localhost:8501`**.
 
 ---
 
-## 4. Academic Documentation & Audit Links
-- [Phase 1 Audit (Ingestion & Quality)](file:///docs/PHASE_1_AUDIT.md)
-- [Phase 2 Audit (Preprocessing & Representations)](file:///docs/PHASE_2_AUDIT.md)
-- [Phase 3 Audit (Controlled Clustering Experiments)](file:///docs/PHASE_3_AUDIT.md)
-- [Phase 4 Audit (Scientific Validation & Selection)](file:///docs/PHASE_4_AUDIT.md)
-- [Phase 5 Audit (Local Streamlit Dashboard)](file:///docs/PHASE_5_AUDIT.md)
-- [Final Model Validation Report](file:///reports/final_model_validation.md)
-- [Live Presentation & Defense Guide](file:///docs/PRESENTATION_DEMO.md)
-- [Software Architecture](file:///docs/ARCHITECTURE.md)
-- [Project Plan](file:///PROJECT_PLAN.md)
-- [Methodology & Protocols](file:///METHODOLOGY.md)
-- [Limitations & Boundary Conditions](file:///LIMITATIONS.md)
-- [Experiment Registry](file:///EXPERIMENT_LOG.md)
+## 🖥️ Streamlit Local Dashboard Modules
+
+The interactive dashboard provides 8 modular views:
+1. **Overview:** Project context, dataset summary, and 8-stage methodology flow.
+2. **Operating Regime Analysis:** Empirical demonstration of speed dominance ($v$ explains 99.33% variance) and representation comparisons (R1 vs R2 vs R5).
+3. **Primary Degradation Profile (K=2):** Cluster distributions, silhouette metrics, and large compressor decay separation ($d = +0.771$).
+4. **Multi-Component Profile (K=3):** Simultaneous discovery of turbine decay ($d = -0.767$) and compressor decay ($d = +0.869$).
+5. **Degradation Map:** Interactive 2D mapping across all 1,326 factorial ($kMc \times kMt$) grid states.
+6. **New Observation Analysis:** Real-time profile assignment with 3 demo presets (Nominal, Compressor Decay, Turbine Decay) and post-hoc verification.
+7. **Model Comparison:** Formal evaluation matrix across 11 criteria without artificial composite scores.
+8. **Methodology & Limitations:** Comprehensive documentation of academic boundaries and ethics.
+
+---
+
+## ⚠️ Academic Boundaries & Disclaimers
+
+This project is an academic research demonstration developed for university study. The following boundaries strictly apply:
+- **Simulation-Based Data:** Telemetry originates from a numerical simulator of a CODAG propulsion plant; it lacks real-world sensor noise and sea-state turbulence.
+- **Steady-State Gözlemleri:** Data captures static thermodynamic equilibria; dynamic throttle transients are absent.
+- **No Fault Diagnosis or Failure Prediction:** The system does not predict remaining useful life (RUL) or future failure, as the data contains no time dimension.
+- **No Military/Naval Deployment Claims:** The software has not been tested on physical vessels and must not be used for shipboard control or critical operations.
+
+---
+
+## 📄 Key Documentation Links
+- 📘 [Full University Report (Turkish)](file:///reports/FINAL_UNIVERSITY_REPORT_TR.md)
+- 🇬🇧 [English Academic Abstract](file:///reports/ABSTRACT_EN.md)
+- 🎙️ [Live Defense Presentation Script (5–7 min)](file:///docs/PRESENTATION_DEMO.md)
+- 📊 [16-Slide Presentation Plan](file:///docs/PRESENTATION_OUTLINE_TR.md)
+- ❓ [Defense Q&A Guide (21 Questions)](file:///docs/DEFENSE_QA_TR.md)
+- 🛡️ [Claims Safety Checklist](file:///docs/CLAIMS_CHECKLIST_TR.md)
+- 🖼️ [Final Figure Catalog](file:///docs/FINAL_FIGURE_CATALOG.md)
+- 📜 [Final Project Audit & Verification](file:///docs/FINAL_PROJECT_AUDIT.md)
+
+---
+
+## 📜 License & Provenance
+- **Dataset:** UCI Machine Learning Repository Dataset #316 (Coraddu et al., 2016).
+- **Code License:** MIT License.
