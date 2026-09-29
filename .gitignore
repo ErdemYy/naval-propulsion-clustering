@@ -68,6 +68,8 @@ data/processed/*
 # Serialized models and logs
 models/*
 !models/.gitkeep
+!models/final/
+!models/final/**
 *.log
 experiments/*.log
 

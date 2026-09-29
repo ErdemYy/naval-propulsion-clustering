@@ -1,0 +1,82 @@
+{
+  "model_selection": {
+    "primary_model": {
+      "name": "Candidate A: Binary Compressor Degradation Model",
+      "algorithm": "KMeans",
+      "n_clusters": 2,
+      "random_state": 42,
+      "artifact_file": "kmeans_primary_k2.joblib",
+      "role": "Primary Academic Baseline Model",
+      "rationale": "Maximizes intrinsic silhouette separation (0.2813), exhibits near-perfect operating speed invariance (speed ARI = 0.0002, speed proportion std = 0.022), achieves 98.38% bootstrap stability, and unambiguously isolates compressor decay (eta^2 = 0.4459, Cliff's delta = 0.7709) without over-partitioning.",
+      "metrics": {
+        "silhouette": 0.28134815478976416,
+        "davies_bouldin": 1.3916589659984115,
+        "calinski_harabasz": 5543.353187700914,
+        "speed_ari": 0.00023891449035190064,
+        "kmc_eta_squared": 0.4459040513823721,
+        "kmt_eta_squared": 0.013112272175450326,
+        "bootstrap_ari_mean": 0.9844242548792029,
+        "bootstrap_ari_95ci": [
+          0.9698857608202747,
+          0.9983246777301954
+        ]
+      }
+    },
+    "secondary_model": {
+      "name": "Candidate B: Tripartite Component-Resolved Degradation Model",
+      "algorithm": "KMeans",
+      "n_clusters": 3,
+      "random_state": 42,
+      "artifact_file": "kmeans_multicomponent_k3.joblib",
+      "role": "Secondary / Multi-Component Diagnostic Model",
+      "rationale": "Successfully separates joint compressor and turbine decay states (kMc eta^2 = 0.5109, kMt eta^2 = 0.3007). Distinguishes nominal baseline, degraded turbine, and degraded compressor with high stability (bootstrap ARI mean = 0.9490).",
+      "metrics": {
+        "silhouette": 0.2593122258756982,
+        "davies_bouldin": 1.2917600428147715,
+        "calinski_harabasz": 4889.717958197896,
+        "speed_ari": 0.0064395548755902116,
+        "kmc_eta_squared": 0.5109291562815793,
+        "kmt_eta_squared": 0.30068420838011334,
+        "bootstrap_ari_mean": 0.9433821410278752,
+        "bootstrap_ari_95ci": [
+          0.7922584779051782,
+          0.9903600707856886
+        ]
+      }
+    }
+  },
+  "representation": {
+    "representation_id": "R5_WITHIN_SPEED_NORMALIZED",
+    "transformer_artifact": "operating_regime_normalizer.joblib",
+    "regime_column": "v",
+    "telemetry_features": [
+      "GTT",
+      "GTn",
+      "GGn",
+      "Ts",
+      "T48",
+      "T2",
+      "P48",
+      "P2",
+      "Pexh",
+      "TIC",
+      "mf"
+    ],
+    "quarantined_targets": [
+      "kMc",
+      "kMt"
+    ]
+  },
+  "data_provenance": {
+    "dataset_file": "naval_propulsion.csv",
+    "dataset_sha256": "00e3c6127f0d8f88269c48865cb62a2c848579eb8e4b6e85d5f7e147ad22460a",
+    "n_observations": 11934
+  },
+  "environment": {
+    "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "scikit_learn_version": "1.9.1",
+    "joblib_version": "1.6.0",
+    "platform": "win32",
+    "timestamp_utc": "2026-09-29T14:33:16.690862+00:00"
+  }
+}

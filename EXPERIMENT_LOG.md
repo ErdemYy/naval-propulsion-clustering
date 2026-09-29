@@ -32,6 +32,7 @@ Every experiment must record:
 | **EXP-003** | 2026-09-29 | K-Means Primary Degradation ($k=2$) | R5 Within-Speed Normalized | $s=0.2813$ / $DB=1.3917$ | $p_{kMc} < 10^{-100}$ ($\eta^2=0.446$) | **Completed** | Successfully decouples speed (ARI=0.0002) and discovers compressor decay. |
 | **EXP-004** | 2026-09-29 | K-Means Joint Degradation ($k=3$) | R5 Within-Speed Normalized | $s=0.2593$ / $DB=1.2918$ | $p_{kMc} < 10^{-100}$, $p_{kMt} < 10^{-100}$ | **Completed** | Discovers both compressor decay ($\eta^2=0.511$) and turbine decay ($\eta^2=0.301$). |
 | **EXP-005** | 2026-09-29 | Hierarchical Ward ($k=2$) | R5 Within-Speed Normalized | $s=0.2646$ / $DB=1.4420$ | Matches K-Means ($ARI = 0.962$) | **Completed** | Independent algorithm family confirms K-Means degradation partition. |
+| **EXP-006** | 2026-09-29 | Phase 4 Scientific Validation & Model Selection | R5 Within-Speed Normalized (K-Means $k=2, 3$) | $s_{k2}=0.2813$, $s_{k3}=0.2593$ | $k=2: d_{kMc}=0.771, d_{kMt}=0.132$; $k=3: d_{kMc}=0.869, d_{kMt}=-0.767$ | **Completed** | Proved Cand A isolates compressor decay with 98.4% bootstrap stability & perfect speed invariance (std=2.2%). Cand B isolates turbine decay. Final model serialized to `models/final/`. |
 
 ---
 

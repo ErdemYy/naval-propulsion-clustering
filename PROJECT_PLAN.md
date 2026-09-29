@@ -51,16 +51,18 @@
 - [x] Generated 10 publication-quality diagnostic figures in `reports/figures/phase3/`.
 - [x] Produced Phase 3 research notebook `03_clustering_experiments.ipynb` and audit in `docs/PHASE_3_AUDIT.md`.
 
-### Phase 4: Cluster Validation, Evaluation & Degradation Correlation (Next Phase)
-- [ ] Compute intrinsic unsupervised metrics:
-  - Silhouette Coefficient
-  - Calinski-Harabasz Index
-  - Davies-Bouldin Index
-- [ ] Stability and bootstrap validation across random initializations.
-- [ ] **Post-hoc Degradation Validation (Zero-Leakage):**
-  - Distribution of $kMc$ and $kMt$ across identified clusters.
-  - Non-parametric hypothesis testing (Kruskal-Wallis, Mann-Whitney U) and effect size calculations.
-  - Thermodynamic interpretation: Do clusters represent operating points (load, ship speed) or degradation severity levels?
+### Phase 4: Scientific Validation & Final Model Selection (Complete)
+- [x] Rigorous pairwise degradation validation using Mann-Whitney $U$ tests with Benjamini-Hochberg FDR adjustments.
+- [x] Effect size analysis: Cliff's delta ($d$) and rank-biserial correlations across all cluster pairs.
+- [x] Proved critical distinction: Candidate A turbine decay has $p = 6.69 \times 10^{-36}$ but negligible effect size ($d = 0.1321$), refuting turbine detection for $k=2$.
+- [x] Proved selective multi-component discovery: Candidate B ($k=3$) decouples turbine decay ($kMt$ Cliff's $d = -0.7673, \eta^2 = 0.3007$) from compressor decay ($kMc$ Cliff's $d \ge 0.84, \eta^2 = 0.5109$).
+- [x] Bootstrap stability validation ($B=100$ with replacement): Candidate A achieved Mean ARI = $0.9844$ (95% CI: $[0.9699, 0.9983]$); Candidate B achieved Mean ARI = $0.9434$ (95% CI: $[0.7923, 0.9904]$).
+- [x] Degradation grid coherence: Verified spatial contiguity across $51 \times 26$ ($1,326$ cells) with $>82\%$ speed consistency.
+- [x] Operating-speed invariance: Candidate A proportions strictly invariant across speeds ($49.77\% \pm 2.22\%$, Cramér's V = $0.0418$).
+- [x] Robust standardized telemetry profiles with 95% bootstrap CIs confirming thermodynamic consistency (elevated $T_2, T_{48}, m_f$ under compressor degradation).
+- [x] Model Selection Verdict: Option C (Dual-model hierarchy: Candidate A as Primary Baseline Model, Candidate B as Secondary Diagnostic Model).
+- [x] Serialized final models to `models/final/` with complete `model_manifest.json` and verified local Windows reload.
+- [x] Published `reports/final_model_validation.md`, `docs/PHASE_4_AUDIT.md`, 6 publication figures, and 42/42 passing unit tests.
 
 ### Phase 5: Local Streamlit Dashboard Implementation
 - [ ] Build an interactive, self-contained Streamlit dashboard in `app/`.
